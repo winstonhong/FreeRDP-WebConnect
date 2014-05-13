@@ -44,6 +44,266 @@ namespace wsgate {
 
     using namespace std;
 
+    const uint32 ASCII_TO_SCANCODE[256] =
+	{
+		0, /* 0 */
+		0, /* 1 */
+		0, /* 2 */
+		0, /* 3 */
+		0, /* 4 */
+		0, /* 5 */
+		0, /* 6 */
+		0, /* 7 */
+		VK_KEY_A, /* 8 */
+		VK_KEY_S, /* 9 */
+		RDP_SCANCODE_TAB, /* 10 */
+		VK_KEY_F, /* 11 */
+		VK_KEY_H, /* 12 */
+		RDP_SCANCODE_RETURN, /* 13 */
+		RDP_SCANCODE_BACKSPACE, /* 14 */
+		VK_KEY_X, /* 15 */
+		VK_KEY_C, /* 16 */
+		RDP_SCANCODE_LCONTROL, /* 17 */
+		RDP_SCANCODE_LMENU, /* 18 */
+		RDP_SCANCODE_PAUSE, /* 19 */
+		VK_KEY_Q, /* 20 */
+		VK_KEY_W, /* 21 */
+		VK_KEY_E, /* 22 */
+		VK_KEY_R, /* 23 */
+		VK_KEY_Y, /* 24 */
+		VK_KEY_A, /* 25 */
+		VK_KEY_1, /* 26 */
+		RDP_SCANCODE_ESCAPE, /* 27 */
+		VK_KEY_3, /* 28 */
+		VK_KEY_4, /* 29 */
+		VK_KEY_6, /* 30 */
+		VK_KEY_5, /* 31 */
+		RDP_SCANCODE_SPACE, /* 32 */
+		RDP_SCANCODE_KEY_1, /* 33 */
+		RDP_SCANCODE_OEM_7, /* 34 */
+		RDP_SCANCODE_KEY_3, /* 35 */
+		RDP_SCANCODE_KEY_4, /* 36 */
+		RDP_SCANCODE_KEY_5, /* 37 */
+		RDP_SCANCODE_KEY_7, /* 38 */
+		RDP_SCANCODE_OEM_7, /* 39 */
+		RDP_SCANCODE_KEY_9, /* 40 */
+		RDP_SCANCODE_KEY_0, /* 41 */
+		RDP_SCANCODE_MULTIPLY, /* 42 */
+		RDP_SCANCODE_ADD, /* 43 */
+		RDP_SCANCODE_OEM_COMMA, /* 44 */
+		RDP_SCANCODE_OEM_MINUS, /* 45 */
+		RDP_SCANCODE_OEM_PERIOD, /* 46 */
+		RDP_SCANCODE_DIVIDE, /* 47 */
+		RDP_SCANCODE_KEY_0, /* 48 */
+		RDP_SCANCODE_KEY_1, /* 49 */
+		RDP_SCANCODE_KEY_2, /* 50 */
+		RDP_SCANCODE_KEY_3, /* 51 */
+		RDP_SCANCODE_KEY_4, /* 52 */
+		RDP_SCANCODE_KEY_5, /* 53 */
+		RDP_SCANCODE_KEY_6, /* 54 */
+		RDP_SCANCODE_KEY_7, /* 55 */
+		RDP_SCANCODE_KEY_8, /* 56 */
+		RDP_SCANCODE_KEY_9, /* 57 */
+		RDP_SCANCODE_OEM_1, /* 58 */
+		RDP_SCANCODE_OEM_1, /* 59 */
+		RDP_SCANCODE_OEM_COMMA, /* 60 */
+		RDP_SCANCODE_OEM_PLUS, /* 61 */
+		RDP_SCANCODE_OEM_PERIOD, /* 62 */
+		RDP_SCANCODE_DIVIDE, /* 63 */
+		RDP_SCANCODE_KEY_2, /* 64 */
+		RDP_SCANCODE_KEY_A, /* 65 */
+		RDP_SCANCODE_KEY_B, /* 66 */
+		RDP_SCANCODE_KEY_C, /* 67 */
+		RDP_SCANCODE_KEY_D, /* 68 */
+		RDP_SCANCODE_KEY_E, /* 69 */
+		RDP_SCANCODE_KEY_F, /* 70 */
+		RDP_SCANCODE_KEY_G, /* 71 */
+		RDP_SCANCODE_KEY_H, /* 72 */
+		RDP_SCANCODE_KEY_I, /* 73 */
+		RDP_SCANCODE_KEY_J, /* 74 */
+		RDP_SCANCODE_KEY_K, /* 75 */
+		RDP_SCANCODE_KEY_L, /* 76 */
+		RDP_SCANCODE_KEY_M, /* 77 */
+		RDP_SCANCODE_KEY_N, /* 78 */
+		RDP_SCANCODE_KEY_O, /* 79 */
+		RDP_SCANCODE_KEY_P, /* 80 */
+		RDP_SCANCODE_KEY_Q, /* 81 */
+		RDP_SCANCODE_KEY_R, /* 82 */
+		RDP_SCANCODE_KEY_S, /* 83 */
+		RDP_SCANCODE_KEY_T, /* 84 */
+		RDP_SCANCODE_KEY_U, /* 85 */
+		RDP_SCANCODE_KEY_V, /* 86 */
+		RDP_SCANCODE_KEY_W, /* 87 */
+		RDP_SCANCODE_KEY_X, /* 88 */
+		RDP_SCANCODE_KEY_Y, /* 89 */
+		RDP_SCANCODE_KEY_Z, /* 90 */
+		RDP_SCANCODE_OEM_4, /* 91 */
+		RDP_SCANCODE_OEM_5, /* 92 */
+		RDP_SCANCODE_OEM_6, /* 93 */
+		RDP_SCANCODE_KEY_6, /* 94 */
+		RDP_SCANCODE_OEM_MINUS, /* 95 */
+		VK_NUMPAD6, /* 96 */
+		RDP_SCANCODE_KEY_A, /* 97 */
+		RDP_SCANCODE_KEY_B, /* 98 */
+		RDP_SCANCODE_KEY_C, /* 99 */
+		RDP_SCANCODE_KEY_D, /* 100 */
+		RDP_SCANCODE_KEY_E, /* 101 */
+		RDP_SCANCODE_KEY_F, /* 102 */
+		RDP_SCANCODE_KEY_G, /* 103 */
+		RDP_SCANCODE_KEY_H, /* 104 */
+		RDP_SCANCODE_KEY_I, /* 105 */
+		RDP_SCANCODE_KEY_J, /* 106 */
+		RDP_SCANCODE_KEY_K, /* 107 */
+		RDP_SCANCODE_KEY_L, /* 108 */
+		RDP_SCANCODE_KEY_M, /* 109 */
+		RDP_SCANCODE_KEY_N, /* 110 */
+		RDP_SCANCODE_KEY_O, /* 111 */
+		RDP_SCANCODE_KEY_P, /* 112 */
+		RDP_SCANCODE_KEY_Q, /* 113 */
+		RDP_SCANCODE_KEY_R, /* 114 */
+		RDP_SCANCODE_KEY_S, /* 115 */
+		RDP_SCANCODE_KEY_T, /* 116 */
+		RDP_SCANCODE_KEY_U, /* 117 */
+		RDP_SCANCODE_KEY_V, /* 118 */
+		RDP_SCANCODE_KEY_W, /* 119 */
+		RDP_SCANCODE_KEY_X, /* 120 */
+		RDP_SCANCODE_KEY_Y, /* 121 */
+		RDP_SCANCODE_KEY_Z, /* 122 */
+		RDP_SCANCODE_OEM_4, /* 123 */
+		RDP_SCANCODE_OEM_5, /* 124 */
+		RDP_SCANCODE_OEM_6, /* 125 */
+		VK_F4, /* 126 */
+		VK_END, /* 127 */
+		VK_F2, /* 128 */
+		VK_NEXT, /* 129 */
+		VK_F1, /* 130 */
+		VK_LEFT, /* 131 */
+		VK_RIGHT, /* 132 */
+		VK_DOWN, /* 133 */
+		VK_UP, /* 134 */
+		0, /* 135 */
+		0, /* 136 */
+		0, /* 137 */
+		0, /* 138 */
+		0, /* 139 */
+		0, /* 140 */
+		0, /* 141 */
+		0, /* 142 */
+		0, /* 143 */
+		0, /* 144 */
+		0, /* 145 */
+		0, /* 146 */
+		0, /* 147 */
+		0, /* 148 */
+		0, /* 149 */
+		0, /* 150 */
+		0, /* 151 */
+		0, /* 152 */
+		0, /* 153 */
+		0, /* 154 */
+		0, /* 155 */
+		0, /* 156 */
+		0, /* 157 */
+		0, /* 158 */
+		0, /* 159 */
+		0, /* 160 */
+		0, /* 161 */
+		0, /* 162 */
+		0, /* 163 */
+		0, /* 164 */
+		0, /* 165 */
+		0, /* 166 */
+		0, /* 167 */
+		0, /* 168 */
+		0, /* 169 */
+		0, /* 170 */
+		0, /* 171 */
+		0, /* 172 */
+		0, /* 173 */
+		0, /* 174 */
+		0, /* 175 */
+		0, /* 176 */
+		0, /* 177 */
+		0, /* 178 */
+		0, /* 179 */
+		0, /* 180 */
+		0, /* 181 */
+		0, /* 182 */
+		0, /* 183 */
+		0, /* 184 */
+		0, /* 185 */
+		0, /* 186 */
+		0, /* 187 */
+		0, /* 188 */
+		0, /* 189 */
+		0, /* 190 */
+		0, /* 191 */
+		0, /* 192 */
+		0, /* 193 */
+		0, /* 194 */
+		0, /* 195 */
+		0, /* 196 */
+		0, /* 197 */
+		0, /* 198 */
+		0, /* 199 */
+		0, /* 200 */
+		0, /* 201 */
+		0, /* 202 */
+		0, /* 203 */
+		0, /* 204 */
+		0, /* 205 */
+		0, /* 206 */
+		0, /* 207 */
+		0, /* 208 */
+		0, /* 209 */
+		0, /* 210 */
+		0, /* 211 */
+		0, /* 212 */
+		0, /* 213 */
+		0, /* 214 */
+		0, /* 215 */
+		0, /* 216 */
+		0, /* 217 */
+		0, /* 218 */
+		0, /* 219 */
+		0, /* 220 */
+		0, /* 221 */
+		0, /* 222 */
+		0, /* 223 */
+		0, /* 224 */
+		0, /* 225 */
+		0, /* 226 */
+		0, /* 227 */
+		0, /* 228 */
+		0, /* 229 */
+		0, /* 230 */
+		0, /* 231 */
+		0, /* 232 */
+		0, /* 233 */
+		0, /* 234 */
+		0, /* 235 */
+		0, /* 236 */
+		0, /* 237 */
+		0, /* 238 */
+		0, /* 239 */
+		0, /* 240 */
+		0, /* 241 */
+		0, /* 242 */
+		0, /* 243 */
+		0, /* 244 */
+		0, /* 245 */
+		0, /* 246 */
+		0, /* 247 */
+		0, /* 248 */
+		0, /* 249 */
+		0, /* 250 */
+		0, /* 251 */
+		0, /* 252 */
+		0, /* 253 */
+		0, /* 254 */
+		0 /* 255 */
+	};
+	
     map<freerdp *, RDP *> RDP::m_instances;
 
     typedef struct {
@@ -274,14 +534,18 @@ namespace wsgate {
                                     tcode = freerdp_keyboard_get_rdp_scancode_from_virtual_key_code(tcode);
                                     log::debug << "Kpress oc=" << tcode << endl;
                                     if (0 < tcode) {
-                                        SendInputKeyboardEvent(KBD_FLAGS_DOWN, tcode);
-                                        SendInputKeyboardEvent(KBD_FLAGS_RELEASE, tcode);
+                                        //SendInputKeyboardEvent(KBD_FLAGS_DOWN, tcode);
+										SendInputUnicodeKeyboardEvent(KBD_FLAGS_DOWN, tcode);
+                                        //SendInputKeyboardEvent(KBD_FLAGS_RELEASE, tcode);
+										SendInputUnicodeKeyboardEvent(KBD_FLAGS_RELEASE, tcode);
                                     }
                                 }
                             } else {
                                 if (0 < tcode) {
-                                    SendInputUnicodeKeyboardEvent(KBD_FLAGS_DOWN, tcode);
-                                    SendInputUnicodeKeyboardEvent(KBD_FLAGS_RELEASE, tcode);
+                                    //SendInputUnicodeKeyboardEvent(KBD_FLAGS_DOWN, tcode);
+									SendInputKeyboardEvent(KBD_FLAGS_DOWN, tcode);
+                                    //SendInputUnicodeKeyboardEvent(KBD_FLAGS_RELEASE, tcode);
+									SendInputKeyboardEvent(KBD_FLAGS_RELEASE, tcode);
                                 }
                             }
                         } else {
