@@ -73,7 +73,8 @@ namespace wsgate {
         WSOP_SC_PTR_FREE,
         WSOP_SC_PTR_SET,
         WSOP_SC_PTR_SETNULL,
-        WSOP_SC_PTR_SETDEFAULT
+        WSOP_SC_PTR_SETDEFAULT,
+	WSOP_SC_CLIPBOARD
     } WsOPsc;
 
     /**
@@ -83,7 +84,8 @@ namespace wsgate {
     typedef enum {
         WSOP_CS_MOUSE,
         WSOP_CS_KUPDOWN,
-        WSOP_CS_KPRESS
+        WSOP_CS_KPRESS,
+	WSOP_CS_CLIPBOARD
     } WsOPcs;
 
     /**
